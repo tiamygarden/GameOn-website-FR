@@ -39,8 +39,6 @@ document.addEventListener("keydown", function (event) {
     }
 });
 
-
-
 // stock data form
 const form = document.getElementById("form");
 const firstName = document.getElementById("first");
