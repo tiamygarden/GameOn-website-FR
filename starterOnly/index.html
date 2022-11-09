@@ -4,14 +4,14 @@
     <meta charset="utf-8">
     <title>Reservation</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="stylesheet" href="modal.css">
+    <link rel="stylesheet" href="css/modal.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans" rel="stylesheet">
 </head>
 <body>
 <div class="topnav" id="myTopnav">
     <div class="header-logo">
-        <img class="header-img" alt="logo" src="Logo.png">
+        <img class="header-img" alt="logo" src="img/Logo.png">
     </div>
     <div class="main-navbar">
         <a href="#" class="active"><span>Accueil</span></a>
@@ -40,7 +40,7 @@
             </button>
         </div>
         <div class="hero-img">
-            <img src="./bg_img.jpg" alt="img" />
+            <img src="img/bg_img.jpg" alt="img" />
         </div>
         <button class="btn-signup modal-btn">
             je m'inscris
@@ -48,41 +48,46 @@
     </div>
     <div class="bground">
         <div class="content">
-            <span onclick="closeModal()" class="close"></span>
+            <div class="close"></div>
             <div class="modal-body">
-                <form name="reserve" action="index.html" method="GET" onsubmit="return validate();">
+                <form id="form" name="reserve" action="index.html" method="GET" onsubmit="return validate();">
                     <div class="formData">
                         <label for="first">Prénom</label>
                         <br>
                         <input class="text-control" type="text" id="first" name="first" minlength="2" required>
                         <br>
+                        <div id="firstWarning"></div>
                     </div>
                     <div class="formData">
                         <label for="last">Nom</label>
                         <br>
                         <input class="text-control" type="text" id="last" name="last" minlength="2" required>
                         <br>
+                        <div id="lastWarning"></div>
                     </div>
                     <div class="formData">
                         <label for="email">E-mail</label>
                         <br>
                         <input class="text-control" type="email" id="email" name="email" required>
                         <br>
+                        <div id="emailWarning"></div>
                     </div>
                     <div class="formData">
                         <label for="birthdate">Date de naissance</label><br>
                         <input class="text-control" type="date" id="birthdate" name="birthdate">
                         <br>
+                        <div id="birthdateWarning"></div>
                     </div>
-                    <div
-                            class="formData">
+                    <div class="formData">
                         <label for="quantity">À combien de tournois GameOn avez-vous déjà participé ?</label>
                         <br>
-                        <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99" placeholder="0">
+                        <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99">
+                        <br>
+                        <div id="quantityWarning"></div>
                     </div>
                     <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
                     <div class="formData">
-                        <input class="checkbox-input" type="radio" id="location1" name="location" value="New York" checked>
+                        <input class="checkbox-input" type="radio" id="location1" name="location" value="New York">
                         <label class="checkbox-label" for="location1">
                             <span class="checkbox-icon"></span>
                             New York</label>
@@ -106,22 +111,31 @@
                         <label class="checkbox-label" for="location6">
                             <span class="checkbox-icon"></span>
                             Portland</label>
+                        <br>
+                        <div id="tournamentWarning"></div>
                     </div>
                     <div class="formData">
-                        <input class="checkbox-input" type="checkbox" id="checkbox1" checked>
-                        <label class="checkbox2-label" for="checkbox1" required>
+                        <input class="checkbox-input" type="checkbox" id="checkbox1" checked required>
+                        <label class="checkbox2-label" for="checkbox1">
                             <span class="checkbox-icon">J'ai lu et accepté les conditions d'utilisation.</span>
-
                         </label>
                         <br>
+                        <div id="checkbox1Warning"></div>
                         <input class="checkbox-input" type="checkbox" id="checkbox2">
                         <label class="checkbox2-label" for="checkbox2">
                             <span class="checkbox-icon">Je souhaite être prévenu des prochains évènements.</span>
                         </label>
                         <br>
                     </div>
-                    <input class="button btn-submit" type="submit" value="C'est parti">
+                    <input class="button btn-submit" id="btnSubmit" type="submit" value="C'est parti">
+                    <div id="formWarning"></div>
                 </form>
+            </div>
+            <div class="thx-content" id="thankYou">
+                <div class="close closeModal" onclick="closeModal()"></div>
+                <div class="modal-body"></div>
+                <div class="thankYou">Merci pour<br>votre inscription</div>
+                <div class="button btn-signup" id="btnValid" onclick="closeModal()">Fermer</div>
             </div>
         </div>
     </div>
@@ -131,6 +145,6 @@
         Copyright 2014 - 2022, GameOn Inc.
     </p>
 </footer>
-<script src="modal.js"></script>
+<script src="js/modal.js"></script>
 </body>
 </html>
