@@ -7,10 +7,47 @@ function editNav() {
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const closeBtn = document.querySelector(".close");
-const formData = document.querySelectorAll('.formData');
+// const formData = document.querySelectorAll('.formData');
+const btnSubmit = document.getElementById("btnSubmit");
 const form = document.getElementById("form");
 const thankYou = document.getElementById("thankYou");
+const btnValid= document.getElementById("btnValid");
+// ------------------                                    DYNAMIC MODAL FORM CONST                         ----------------------------------------------//
+// Declaration of empty INPUTS
+const firstName = document.getElementById("first");
+const lastName = document.getElementById("last");
+const email = document.getElementById("email");
+const birthDate = document.getElementById("birthdate");
+const quantity = document.getElementById("quantity");
+const tournament = document.getElementsByName("location");
+const checkbox = document.getElementById("checkbox1");
+// const thankYouClose = document.getElementById("thankYouClose");
 
+//location of correct or not inputs info
+const firstWarning=document.getElementById("firstWarning");
+const lastWarning=document.getElementById("lastWarning");
+const emailWarning=document.getElementById("emailWarning");
+const birthDateWarning=document.getElementById("birthdateWarning");
+const quantityWarning=document.getElementById("quantityWarning");
+const tournamentWarning=document.getElementById("tournamentWarning");
+const checkboxWarning=document.getElementById("checkboxWarning");
+const formWarning=document.getElementById("formWarning");
+
+// ------------------                                    REGEXS                         ----------------------------------------------//
+//regex for email format
+const regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+//regex for firstname lastname and email longer than 2 characters and at least 60 characters
+const regexName = /^[a-zA-Z]{2,60}$/;
+
+// regex for birthdate is not a UTC datE
+const regexDate = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/;
+
+// regex for quantity is a number between 0 and 99
+const regexQuantity = /^[0-9]{1,2}$/;
+
+//regex true or false
+const regexTrueOrFalse = /^([Tt][Rr][Uu][Ee])|([Ff][Aa][Ll][Ss][Ee])$/;
 
 // ------------------                                    LAUNCH MODAL FORM                          ----------------------------------------------//
 // launch modal event
@@ -48,49 +85,11 @@ document.addEventListener("keydown", function (event) {
     }
 });
 
-// ------------------                                    DYNAMIC MODAL FORM CONST                         ----------------------------------------------//
-// Declaration of empty INPUTS
-const firstName = document.getElementById("first");
-const lastName = document.getElementById("last");
-const email = document.getElementById("email");
-const birthDate = document.getElementById("birthdate");
-const quantity = document.getElementById("quantity");
-const tournament = document.getElementsByName("location");
-const checkbox1 = document.getElementById("checkbox1");
-// const thankYouClose = document.getElementById("thankYouClose");
-
-//location of correct or not inputs info
-const firstWarning=document.getElementById("firstWarning");
-const lastWarning=document.getElementById("lastWarning");
-const emailWarning=document.getElementById("emailWarning");
-const birthDateWarning=document.getElementById("birthdateWarning");
-const quantityWarning=document.getElementById("quantityWarning");
-const tournamentWarning=document.getElementById("tournamentWarning");
-const checkbox1Warning=document.getElementById("checkbox1Warning");
-const formWarning=document.getElementById("formWarning");
-
-// ------------------                                    REGEXS                         ----------------------------------------------//
-//regex for email
-const regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-
-//regex for firstname lastname and email longer than 2 characters and at least 60 characters
-const regexName = /^[a-zA-Z]{2,60}$/;
-
-// regex for birthdate is not a UTC datE
-const regexDate = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/;
-
-// regex for quantity is a number between 0 and 99
-const regexQuantity = /^[0-9]{1,2}$/;
-
-//regex to verify yes or not
-const regexYesorNot =/^([Tt][Rr][Uu][Ee]|[Ff][Aa][Ll][Ss][Ee])$/;
-
-
 // ------------------                                    INPUT VALIDATOR                -----------------------------------------------//
 function inputValidator(input, regEx, msg, label, border){
-    let testValid = regEx.test(input.value);                    //RegEx test with stock value
+    let testValid = regEx.test(input.value);                                                //RegEx test with stock value
 
-    if(testValid || input.value === birthdate || input.value=== 1 || input.value===true ){                        //if test is true or input is NOT empty
+    if(testValid || input.value === birthdate || input.value=== 1 || input.value===true && input.value!==undefined && input.value!==null){                        //if test is true or input is NOT empty
         label.innerHTML = "Champs Valide";
         label.classList.remove('text-error');
         label.classList.add('text-success');
@@ -98,8 +97,7 @@ function inputValidator(input, regEx, msg, label, border){
         border.classList.add('border-success');
         return true;
     }
-
-    else {
+    else{
         label.innerHTML = msg;
         label.classList.remove('text-success');
         label.classList.add('text-error');
@@ -115,7 +113,7 @@ firstName.addEventListener("change", function(){
     inputValidator(this, regexName, "Veuillez rentrer deux caractères minimum", firstWarning, this);
 });
 
-lastName.addEventListener('change', function() {
+lastName.addEventListener("change", function() {
     inputValidator(this, regexName, "Veuillez rentrer deux caractères minimum", lastWarning, this);
 });
 
@@ -134,29 +132,88 @@ quantity.addEventListener("change", function(){
     inputValidator(this, regexQuantity, "Veuillez renseigner un nombre", quantityWarning, this);
 });
 
+// ------------------                                    TOURNAMENT VERIFICATOR                -----------------------------------------------//
+
+function inputVerificator(input,regEx, msg,label){
+    let checked =regEx.test(input.value);
+
+    if(checked===true){
+        label.innerHTML = msg;
+        label.classList.remove("text-success");
+        label.classList.add("text-error");
+        return false;
+    }
+    else {
+        label.innerHTML = "Champs Valide";
+        label.classList.remove("text-error");
+        label.classList.add("text-success");
+        return true;
+    }
+}
+
 // ------------------                                    VERIFY TOURNAMENTS                          ----------------------------------------------//
-tournament.addEventListener("change", function(){
-    inputValidator(this, regexYesorNot, "Veuillez choisir un tournois", tournamentWarning, this);
-});
+tournament.forEach((checkedBoxInput)=>checkedBoxInput.addEventListener("change", function(){
+    inputVerificator(this,regexTrueOrFalse, "Veuillez choisir un tournois", tournamentWarning, this);
+}));
+
+// ------------------                                    CHECKED VERIFICATOR                -----------------------------------------------//
+
+const validCondition = function() {
+    if(checkbox.checked === false ) {
+        checkboxWarning.innerHTML = "Merci d'accepter les conditions d'utilisations";
+        checkboxWarning.classList.remove('text-success');
+        checkboxWarning.classList.add('text-error');
+        return false;
+    }else {
+        checkboxWarning.innerHTML = "Champs Valide";
+        checkboxWarning.classList.remove('text-error');
+        checkboxWarning.classList.add('text-success');
+        return true;
+    }
+};
 
 // ------------------                                    VERIFY CHECKBOX                          ----------------------------------------------//
-checkbox1.addEventListener("change", function(){
-    inputValidator(this, regexYesorNot, "Veuillez accepter nos conditions", checkbox1Warning, this);
+checkbox.addEventListener("change", function(){
+    validCondition(this);
 });
 
 // ------------------                                    SUBMIT FORM AND THANKS                        ----------------------------------------------//
-// close modal form when clicking on the submit button if all the fields are filled in
-form.addEventListener("submit", function (event) {
-        event.preventDefault();
-        if (checkInputs===true) {
-            display(getelementbyid("thankYou"));
-        }
+// show thankYou over the modal if allinputs are valid
+function showThankYou(){
+    form.style.display = "none";
+    thankYou.style.display = "flex";
+}
+
+//verify all inputs and show thankYou or msg error
+function submitForm(){
+    if(inputValidator(firstName, regexName, "Veuillez rentrer deux caractères minimum", firstWarning, firstName) &&
+        inputValidator(lastName, regexName, "Veuillez rentrer deux caractères minimum", lastWarning, lastName) &&
+        inputValidator(email, regexEmail, "Veuillez entrer une adresse mail valide", emailWarning, email) &&
+        inputValidator(birthDate, regexDate, "Veuillez entrer votre date de naissance", birthDateWarning, birthDate) &&
+        inputValidator(quantity, regexQuantity, "Veuillez renseigner un nombre", quantityWarning, quantity) &&
+        inputVerificator(tournament,regexTrueOrFalse, "Veuillez choisir un tournois", tournamentWarning) &&
+        validCondition(checkbox)){
+        showThankYou();
     }
-);
+    else {
+        formWarning.innerHTML.classList.add = "Veuillez remplir tous les champs";
+    }
+}
 
+// on click on submit button submitForm function is called
+btnSubmit.addEventListener("click", function(event){
+    event.preventDefault();
+    submitForm();
+});
 
-thankYouClose.addEventListener("click", function (event) {
-    if (event.target === thankYouClose) {
+// on click on the ESC key, close the thankYou modal
+document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
         closeModal();
     }
+});
+
+//on click on btnValid close the thankYou modal
+btnValid.addEventListener("click", function () {
+    closeModal();
 });

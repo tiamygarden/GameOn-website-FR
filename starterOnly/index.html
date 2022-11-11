@@ -50,7 +50,7 @@
         <div class="content">
             <div class="close"></div>
             <div class="modal-body">
-                <form id="form" name="reserve" action="index.html" method="GET" onsubmit="return validate();">
+                <form id="form" name="reserve" action="index.html" method="GET" onsubmit="preventDefault();validate();">
                     <div class="formData">
                         <label for="first">Prénom</label>
                         <br>
@@ -111,16 +111,15 @@
                         <label class="checkbox-label" for="location6">
                             <span class="checkbox-icon"></span>
                             Portland</label>
-                        <br>
                         <div id="tournamentWarning"></div>
+                        <br>
                     </div>
                     <div class="formData">
                         <input class="checkbox-input" type="checkbox" id="checkbox1" checked required>
                         <label class="checkbox2-label" for="checkbox1">
                             <span class="checkbox-icon">J'ai lu et accepté les conditions d'utilisation.</span>
                         </label>
-                        <br>
-                        <div id="checkbox1Warning"></div>
+                        <div id="checkboxWarning"></div>
                         <input class="checkbox-input" type="checkbox" id="checkbox2">
                         <label class="checkbox2-label" for="checkbox2">
                             <span class="checkbox-icon">Je souhaite être prévenu des prochains évènements.</span>
@@ -130,12 +129,11 @@
                     <input class="button btn-submit" id="btnSubmit" type="submit" value="C'est parti">
                     <div id="formWarning"></div>
                 </form>
-            </div>
-            <div class="thx-content" id="thankYou">
-                <div class="close closeModal" onclick="closeModal()"></div>
-                <div class="modal-body"></div>
-                <div class="thankYou">Merci pour<br>votre inscription</div>
-                <div class="button btn-signup" id="btnValid" onclick="closeModal()">Fermer</div>
+                <!--                <div class="close closeModal" id="thankYouClose" onclick="closeModal()"></div>-->
+                <div class="modal-body thankYou" id="thankYou">
+                    <p class="flex">Merci pour<br>votre inscription</p>
+                    <input type="button" class="button btn-signup" id="btnValid" onclick="closeModal()" value="Fermer">
+                </div>
             </div>
         </div>
     </div>

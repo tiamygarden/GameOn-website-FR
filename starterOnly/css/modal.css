@@ -77,46 +77,6 @@ img {
     display: none;
 }
 
-@media screen and (max-width: 768px) {
-    .topnav a {
-        display: none;
-    }
-
-    .topnav a.icon {
-        float: right;
-        display: block;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .topnav.responsive {
-        position: relative;
-    }
-
-    .topnav.responsive .icon {
-        position: absolute;
-        right: 0;
-        top: 0;
-    }
-
-    .topnav.responsive a {
-        float: none;
-        display: block;
-        text-align: left;
-    }
-}
-
-@media screen and (max-width: 540px) {
-    .topnav a {
-        display: none;
-    }
-
-    .topnav a.icon {
-        float: right;
-        display: block;
-        margin-top: -15px;
-    }
-}
 
 main {
     font-size: 130%;
@@ -133,7 +93,7 @@ main {
 .modal-btn {
     font-size: 145%;
     background: #fe142f;
-    display: flex;
+    display: block;
     margin: auto;
     color: #fff;
     padding: 0.75rem 2.5rem;
@@ -183,8 +143,8 @@ main {
     background-color: rgba(26, 39, 156, 0.4);
 }
 
-.content, .thx-content {
-    margin: 5% auto;
+.content {
+    margin:auto;
     width: 100%;
     max-width: 500px;
     animation-name: modalopen;
@@ -194,17 +154,14 @@ main {
     overflow: hidden;
     position: relative;
     color: #fff;
+    top:20px;
     padding-top: 10px;
-}
-
-.thx-content {
-    display: none;
-    height: 80%;
 }
 
 .modal-body {
     padding: 15px 8%;
     margin: 15px auto;
+    min-height: 760px;
 }
 
 label {
@@ -230,7 +187,7 @@ input {
     height: 48px;
 }
 
-.text-error , .text-success{
+.text-error, .text-success {
     font-size: 12px;
     margin-top: 7px;
 }
@@ -239,12 +196,7 @@ input {
     opacity: 1;
 }
 
-/*.text-error .border-error {*/
-/*    color: #e54858;*/
-/*    border: 2px solid #e54858;*/
-/*}*/
-
-.text-error{
+.text-error {
     color: #e54858;
 }
 
@@ -272,12 +224,15 @@ input {
     opacity: 0;
     transition: 0.3s;
 }
+
 .formData[data-error-visible="true"]::after {
     opacity: 1;
 }
+
 .formData[data-error-visible="true"] .text-control {
     border: 2px solid #e54858;
 }
+
 /*input[data-error]::after {*/
 /*    content: attr(data-error);*/
 /*    font-size: 0.4em;*/
@@ -390,12 +345,30 @@ input {
 .btn-submit,
 .btn-signup {
     background: #fe142f;
-    display: flex;
+    display: block;
     margin: 0 auto;
     border-radius: 7px;
     color: #fff;
     cursor: pointer;
     border: 0;
+}
+
+.flex{
+    display: flex;
+    align-self: center;
+    align-content: center;
+    align-items: center;
+}
+
+.thankYou {
+    display:none;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    font-family: var(--font-default);
+    font-size: 36px;
+    font-weight: normal;
+    text-align: center;
 }
 
 /* custom select styles */
@@ -523,8 +496,10 @@ input {
     outline: none;
     text-transform: capitalize;
     font-size: 1.3rem;
-    margin: 217px auto 15px 0;
+    /*position:relative;*/
+    margin: 15px auto 5px;
     padding: 15px 23px;
+    /*bottom:-270px;*/
 }
 
 .hero-img {
@@ -554,6 +529,68 @@ footer {
     padding-left: 2vw;
     padding-right: 2vw;
     margin: 0 20px;
+}
+@media screen and (max-width: 540px) {
+    .topnav a {
+        display: none;
+    }
+
+    .topnav a.icon {
+        float: right;
+        display: block;
+    }
+
+    .thankYou {
+        display: none;
+        justify-content: center;
+        align-content: center;
+        align-self: center;
+        align-items: center;
+        font-family: var(--font-default);
+        font-size: 36px;
+        font-weight: normal;
+        text-align: center;
+    }
+    .formData{
+        padding: 5px 0;
+    }
+
+    .btn-signup {
+        outline: none;
+        text-transform: capitalize;
+        font-size: 1.3rem;
+        margin: 15px auto 5px;
+        padding: 15px 23px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .topnav a {
+        display: none;
+    }
+
+    .topnav a.icon {
+        float: right;
+        display: block;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .topnav.responsive {
+        position: relative;
+    }
+
+    .topnav.responsive .icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    .topnav.responsive a {
+        float: none;
+        display: block;
+        text-align: left;
+    }
 }
 
 @media screen and (max-width: 800px) {
@@ -598,14 +635,13 @@ footer {
     }
 
     .thankYou {
-        display: flex;
+        display:none;
         justify-content: center;
         align-items: center;
         font-family: var(--font-default);
         font-size: 36px;
-        text-align: center;
         font-weight: normal;
-        height: 80%;
+        text-align: center;
     }
 
     .copyrights {
