@@ -482,7 +482,7 @@ input {
 .hero-headline {
     font-size: 6rem;
     font-weight: normal;
-    white-space: nowrap;
+    /*white-space: nowrap;*/
 }
 
 .hero-text {
@@ -511,6 +511,7 @@ input {
     height: 100%;
     display: block;
     padding: 0;
+    object-fit: cover;
 }
 
 .copyrights {
@@ -615,7 +616,7 @@ footer {
 
     .hero-headline {
         font-size: 4.5rem;
-        white-space: normal;
+        white-space: initial;
     }
 
     .hero-text {
