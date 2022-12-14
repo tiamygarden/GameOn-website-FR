@@ -96,7 +96,6 @@ lastName.addEventListener("change", function(event) {
 // ------------------                                    INPUT VALIDATOR                            -----------------------------------------------//
 function inputValidator(input, regEx, msg, label, border){
     let testValid = regEx.test(input.value);                                                //RegEx test with stock value
-
     if(testValid || input.value === birthdate || input.value=== 1 || input.value===true && input.value!==undefined && input.value!==null){                        //if test is true or input is NOT empty null or undefined
         label.innerHTML = "Champs Valide";
         label.classList.remove('text-error');
@@ -106,13 +105,13 @@ function inputValidator(input, regEx, msg, label, border){
         return true;
     }
     else{
-        label.innerHTML = msg;
-        label.classList.remove('text-success');
-        label.classList.add('text-error');
-        border.classList.remove('border-success');
-        border.classList.add('border-error');
-        return false;
-    }
+            label.innerHTML = msg;
+            label.classList.remove('text-success');
+            label.classList.add('text-error');
+            border.classList.remove('border-success');
+            border.classList.add('border-error');
+            return false;
+        }
 }
 
 // ------------------                                    VERIFY EMAIL                               ----------------------------------------------//
@@ -146,10 +145,11 @@ function checkTournament(){
 
 function validTournament(){
         if(!checkTournament()){
-        tournamentWarning.innerHTML = "Veuillez choisir une ville";
-        tournamentWarning.classList.remove("text-success");
-        tournamentWarning.classList.add("text-error");
-        return false;
+                tournamentWarning.innerHTML = "Veuillez choisir une ville";
+                tournamentWarning.classList.remove("text-success");
+                tournamentWarning.classList.add("text-error");
+                return false;
+
     }
     else {
         tournamentWarning.innerHTML = "Champs Valide";
@@ -174,6 +174,7 @@ const validCondition = function() {
         checkboxWarning.classList.remove('text-success');
         checkboxWarning.classList.add('text-error');
         return false;
+
     }else {
         checkboxWarning.innerHTML = "Champs Valide";
         checkboxWarning.classList.remove('text-error');
@@ -194,15 +195,14 @@ function showThankYou(){
     thankYou.style.display = "flex";
 }
 
-//verify all inputs and show thankYou or msg error
+//verify all inputs and show thankYou or msg error for all input in error
 function submitForm(){
-    if(checkFirstName(firstName) &&
-        checkLastName(lastName) &&
-        inputValidator(email, regexEmail, "Email invalide", emailWarning, email) &&
-        inputValidator(birthDate, regexDate, "Date de naissance incorrect", birthDateWarning, birthDate) &&
-        inputValidator(quantity, regexQuantity, "Veuillez renseigner un chiffre", quantityWarning, quantity) &&
-        validTournament(tournament) &&
-        validCondition(checkbox)){
+    let inputsVerify = [checkFirstName(firstName), checkLastName(lastName), inputValidator(email, regexEmail, "Veuillez entrer une adresse mail valide", emailWarning, email), inputValidator(birthDate, regexDate, "Veuillez entrer votre date de naissance", birthDateWarning, birthDate), inputValidator(quantity, regexQuantity, "Veuillez renseigner un nombre", quantityWarning, quantity), validTournament(), validCondition()];
+    let allInputsValid = inputsVerify.every(function(input){
+        return input === true;
+    }
+    );
+    if(allInputsValid){
         showThankYou();
     }
 }
